@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFT Collection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style2.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h2>NFT Collection</h2>
+    <div id="nft-gallery"></div>
+    <div id="details" style="margin-top: 30px;">
+        <h3>NFT Details</h3>
+        <div id="details-content"></div>
+        <div id="graph-container">
+            <canvas id="priceGraph"></canvas>
+        </div>
+    </div>
+
+    <script>
+        fetch('/nft_data')
+        .then(response => response.json())
+        .then(nfts => {
+            const galleryDiv = document.getElementById('nft-gallery');
+            let galleryHTML = '';
+            nfts.forEach((nft, index) => {
+                galleryHTML += `
+                    <div style="display:inline-block; margin:10px;">
+                        <img src="${nft.image}" width="150" onclick="showDetails(${index})" style="cursor: pointer;" />
+                    </div>
+                `;
+            });
+            galleryDiv.innerHTML = galleryHTML;
+            
+            window.nfts = nfts;
+        });
+
+        function showDetails(index) {
+            const nft = window.nfts[index];
+            const detailsDiv = document.getElementById('details-content');
+            detailsDiv.innerHTML = `
+                <div class="container">
+                    <div class="image-container">
+                        <img src="${nft.image}" width="300" />
+                    </div>
+                    <div class="details-container">
+                        <h3>Token ID: ${nft.tokenId}</h3>
+                        <p><strong>Seller:</strong> ${nft.lastTransaction.seller}</p>
+                        <p><strong>Buyer:</strong> ${nft.lastTransaction.buyer}</p>
+                        <p><strong>Amount:</strong> ${nft.lastTransaction.priceETH} ETH</p>
+                        <p><strong>Highest Sale Price:</strong> ${Math.max(...nft.salePrices)} ETH</p>
+                        <p><strong>Lowest Sale Price:</strong> ${Math.min(...nft.salePrices)} ETH</p>
+                    </div>
+                </div>
+            `;
+            updateGraph(nft.salePrices);
+        }
+
+        function updateGraph(salePrices) {
+            const ctx = document.getElementById('priceGraph').getContext('2d');
+            if (window.priceChart) {
+                window.priceChart.destroy();
+            }
+            window.priceChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: salePrices.map((_, i) => `Sale ${i + 1}`),
+                    datasets: [{
+                        label: 'Price in ETH',
+                        data: salePrices,
+                        fill: false,
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

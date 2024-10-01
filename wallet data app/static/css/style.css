@@ -1,0 +1,42 @@
+body {
+    background-color: #c2d1f0;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+.container {
+    text-align: center;
+    position: relative;
+}
+
+h1 {
+    color: #4b4b8f;
+    font-size: 48px;
+    margin-bottom: 20px;
+    font-family: 'Press Start 2P', cursive;
+}
+
+.search-container {
+    margin-top: 100px;
+}
+
+.search-input {
+    padding: 15px 30px;
+    border-radius: 25px;
+    font-size: 16px;
+    width: 300px;
+}
+
+.search-button {
+    padding: 15px 30px;
+    background-color: #ffffff;
+    color: #4b4b8f;
+}
+
+.balance, .value, .transaction {
+    background-color: white;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 10px;
+}
+
+.clear { clear: both; }

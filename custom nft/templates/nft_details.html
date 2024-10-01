@@ -1,0 +1,17 @@
+<html>
+<head>
+    <title>NFT Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style1.css') }}">
+</head>
+<body>
+    <h2>NFT Details</h2>
+    <img src="{{ nft['image'] }}" width="300" />
+    <h3>Token ID: {{ nft['tokenId'] }}</h3>
+    <p><strong>Last Sale:</strong> {{ nft['salePrices'][0] if nft['salePrices'] else 'N/A' }} ETH</p>
+    <p><strong>Seller:</strong> {{ nft['lastTransaction'].get('seller', 'N/A') }}</p>
+    <p><strong>Buyer:</strong> {{ nft['lastTransaction'].get('buyer', 'N/A') }}</p>
+    <p><strong>Highest Price:</strong> {{ nft['highestPrice']|round(4) }} ETH</p>
+    <p><strong>Lowest Price:</strong> {{ nft['lowestPrice']|round(4) }} ETH</p>
+    <p><strong>All Sale Prices:</strong> {{ sale_prices_list }} ETH</p>
+</body>
+</html>

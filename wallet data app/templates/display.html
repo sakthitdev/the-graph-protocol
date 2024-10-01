@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wallet Data</title>
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="balance">ETH Balance: {{ eth_balance }} ETH</div>
+        <div class="value">BNB Balance: {{ bnb_balance }} BNB</div>
+        <div class="clear"></div>
+        
+        <h2>Last Few Transactions:</h2>
+        {% for transaction in transactions %}
+        <div class="transaction">
+            <table>
+                <tr><td>Hash</td><td>{{ transaction['hash'] }}</td></tr>
+                <tr><td>From</td><td>{{ transaction['from'] }}</td></tr>
+                <tr><td>To</td><td>{{ transaction['to'] }}</td></tr>
+                <tr><td>Amount</td><td>{{ transaction['amount'] }} ETH</td></tr>
+            </table>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

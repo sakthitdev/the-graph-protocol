@@ -1,0 +1,16 @@
+<html>
+<head>
+    <title>O-Block</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style1.css') }}">
+</head>
+<body>
+    <h1>O-BLOCK</h1>
+    <div class="input-container">
+        <form action="/nft-details" method="POST">
+            <input type="search" name="contract_id" placeholder="ENTER CONTRACT ID" required>
+            <input type="search" name="token_id" placeholder="ENTER TOKEN ID" required>
+            <input type="submit" value="search">
+        </form>
+    </div>
+</body>
+</html>
