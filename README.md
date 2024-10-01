@@ -24,7 +24,7 @@ This project is a Flask-based web application that fetches NFT trade data from T
 
 1. Clone the repository
    ```bash
-   git clone https://github.com/username/project-name.git
+   git clone https://github.com/sakthitdev/the-graph-protocol.git
    cd project-name
 #Create and activate a virtual environment
 
